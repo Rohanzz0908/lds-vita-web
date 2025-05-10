@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Pill } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const location = useLocation();
+  
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +26,7 @@ const Navbar = () => {
             <Link to="/#services" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-pharma-blue">
               Services
             </Link>
-            <Link to="/projects" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-pharma-blue">
+            <Link to="/projects" className={`px-3 py-2 text-sm font-medium ${location.pathname === '/projects' ? 'text-pharma-blue font-bold' : 'text-gray-700'} hover:text-pharma-blue`}>
               Products
             </Link>
             <Link to="/#contact" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-pharma-blue">
@@ -79,7 +80,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/projects"
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-pharma-blue hover:bg-gray-50"
+              className={`block px-3 py-2 text-base font-medium ${location.pathname === '/projects' ? 'text-pharma-blue font-bold' : 'text-gray-700'} hover:text-pharma-blue hover:bg-gray-50`}
               onClick={() => setIsMenuOpen(false)}
             >
               Products
