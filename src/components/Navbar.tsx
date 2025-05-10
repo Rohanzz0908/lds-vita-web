@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Medicine } from "lucide-react";
+import { Pill } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +12,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0 flex items-center">
-              <Medicine className="h-8 w-8 text-pharma-blue" />
+              <Pill className="h-8 w-8 text-pharma-blue" />
               <span className="ml-2 text-xl font-bold text-pharma-blue">LDS Life Sciences</span>
             </a>
           </div>

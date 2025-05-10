@@ -1,19 +1,19 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Medicine, FileText, FileMedical } from "lucide-react";
+import { Pill, FileText, Flask } from "lucide-react";
 
 const Services = () => {
   const services = [
     {
       title: "Pharmaceutical Research",
       description: "Innovative R&D focused on developing effective pharmaceutical solutions for various medical conditions.",
-      icon: <Medicine className="h-10 w-10 text-pharma-blue" />,
+      icon: <Pill className="h-10 w-10 text-pharma-blue" />,
     },
     {
       title: "Product Development",
       description: "End-to-end product development from concept to market, ensuring safety, efficacy, and compliance.",
-      icon: <FileMedical className="h-10 w-10 text-pharma-blue" />,
+      icon: <Flask className="h-10 w-10 text-pharma-blue" />,
     },
     {
       title: "Regulatory Compliance",
