@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Pill, FileText, Flask } from "lucide-react";
+import { Pill, FileText, Beaker } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -13,7 +13,7 @@ const Services = () => {
     {
       title: "Product Development",
       description: "End-to-end product development from concept to market, ensuring safety, efficacy, and compliance.",
-      icon: <Flask className="h-10 w-10 text-pharma-blue" />,
+      icon: <Beaker className="h-10 w-10 text-pharma-blue" />,
     },
     {
       title: "Regulatory Compliance",
