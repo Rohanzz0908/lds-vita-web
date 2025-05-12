@@ -78,6 +78,44 @@ body {
   }
 }
 
+@keyframes rotateIn {
+  from {
+    transform: rotate(-10deg) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .animate-fadeUp {
   animation: fadeUp 0.8s ease-out forwards;
 }
@@ -100,6 +138,54 @@ body {
 
 .animate-pulse {
   animation: pulse 2s infinite ease-in-out;
+}
+
+.animate-rotateIn {
+  animation: rotateIn 0.8s ease-out forwards;
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.animate-float {
+  animation: float 3s infinite ease-in-out;
+}
+
+/* Button hover effects */
+.btn-hover-glow:hover {
+  box-shadow: 0 0 15px rgba(234, 56, 76, 0.5);
+}
+
+.btn-hover-expand:hover {
+  transform: scale(1.05);
+}
+
+/* Staggered animation delays */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
 }
 
 /* Hover effects for cards */
