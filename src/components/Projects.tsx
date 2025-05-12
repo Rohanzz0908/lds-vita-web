@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { Pill, Tablet, Tablets } from "lucide-react"; 
+import { Layout, Image, Move, Star } from "lucide-react"; 
 import { 
   Pagination, 
   PaginationContent, 
@@ -23,95 +23,95 @@ const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
-    { id: "all", name: "All Products" },
-    { id: "generic", name: "Generic Pharmaceuticals" },
-    { id: "specialty", name: "Specialty Medicines" },
-    { id: "otc", name: "OTC Products" },
-    { id: "nutra", name: "Nutraceuticals" }
+    { id: "all", name: "All Projects" },
+    { id: "residential", name: "Residential" },
+    { id: "commercial", name: "Commercial" },
+    { id: "interior", name: "Interior Design" },
+    { id: "landscape", name: "Landscape" }
   ];
 
-  const products = [
+  const projects = [
     {
       id: 1,
-      name: "Paracetamol 500mg",
-      category: "generic",
-      description: "Standard pain relief medication.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Paracetamol"
+      name: "Modern Minimalist Home",
+      category: "residential",
+      description: "Clean lines and open spaces define this minimalist residential project.",
+      image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 2,
-      name: "Amoxicillin 250mg",
-      category: "generic",
-      description: "Common antibiotic treatment.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Amoxicillin"
+      name: "Luxury Apartment Complex",
+      category: "residential",
+      description: "A blend of luxury and functionality in urban living.",
+      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 3,
-      name: "Specialized Oncology Drug",
-      category: "specialty",
-      description: "Advanced treatment for specific cancers.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Oncology"
+      name: "Corporate Headquarters",
+      category: "commercial",
+      description: "Innovative office design promoting collaboration and productivity.",
+      image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 4,
-      name: "Immune Support Capsules",
-      category: "specialty",
-      description: "Specialized immune system support.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Immune+Support"
+      name: "Boutique Hotel",
+      category: "commercial",
+      description: "Unique hospitality design blending comfort with luxury.",
+      image: "https://images.unsplash.com/photo-1439337153520-7082a56a81f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 5,
-      name: "Cold & Flu Relief",
-      category: "otc",
-      description: "Fast-acting cold and flu symptom relief.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Cold+%26+Flu"
+      name: "Contemporary Living Room",
+      category: "interior",
+      description: "Sleek interior design focusing on comfort and aesthetics.",
+      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 6,
-      name: "Allergy Relief Tablets",
-      category: "otc",
-      description: "24-hour allergy symptom relief.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Allergy"
+      name: "Executive Office Suite",
+      category: "interior",
+      description: "Professional work environment designed for productivity.",
+      image: "https://images.unsplash.com/photo-1473177104440-ffee2f376098?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 7,
-      name: "Vitamin D3 Supplements",
-      category: "nutra",
-      description: "Daily vitamin D3 for bone health.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Vitamin+D3"
+      name: "Urban Garden Retreat",
+      category: "landscape",
+      description: "Transformative outdoor space in an urban setting.",
+      image: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 8,
-      name: "Omega-3 Fish Oil",
-      category: "nutra",
-      description: "Heart and brain health supplement.",
-      image: "https://placehold.co/300x200/D3E4FD/0056b3?text=Omega+3"
+      name: "Rooftop Garden Design",
+      category: "landscape",
+      description: "Innovative green space utilization in high-rise buildings.",
+      image: "https://images.unsplash.com/photo-1551038247-3d9af20df552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
-  const filteredProducts = selectedCategory === 'all' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+  const filteredProjects = selectedCategory === 'all' 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <section className="py-16 bg-gray-50 min-h-screen">
+    <section className="py-20 bg-askspace-black min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-3xl font-bold text-pharma-darkgray mb-4">Our Product Portfolio</h2>
-          <div className="w-20 h-1 bg-pharma-blue mx-auto"></div>
-          <p className="mt-4 max-w-2xl mx-auto text-gray-500">
-            Explore our comprehensive range of pharmaceutical products developed with innovation and quality.
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-3xl font-bold text-white mb-4">Our Project Portfolio</h2>
+          <div className="w-20 h-1 bg-askspace-red mx-auto"></div>
+          <p className="mt-6 max-w-2xl mx-auto text-gray-300">
+            Explore our diverse range of architectural and interior design projects, each reflecting our commitment to excellence and innovation.
           </p>
         </div>
 
-        <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <div className="mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <Tabs defaultValue="all" onValueChange={setSelectedCategory} className="w-full">
-            <TabsList className="w-full flex flex-wrap justify-center mb-8 bg-white p-1 shadow-sm">
+            <TabsList className="w-full flex flex-wrap justify-center mb-8 bg-askspace-darkgray p-1 shadow-md">
               {categories.map((category) => (
                 <TabsTrigger 
                   key={category.id} 
                   value={category.id}
-                  className="data-[state=active]:bg-pharma-blue data-[state=active]:text-white px-4 py-2"
+                  className="data-[state=active]:bg-askspace-red data-[state=active]:text-white px-4 py-2"
                 >
                   {category.name}
                 </TabsTrigger>
@@ -121,25 +121,34 @@ const Projects = () => {
             {categories.map((category) => (
               <TabsContent key={category.id} value={category.id} className="mt-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {filteredProducts.map((product, index) => (
+                  {filteredProjects.map((project, index) => (
                     <Card 
-                      key={product.id} 
-                      className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300"
+                      key={project.id} 
+                      className="overflow-hidden border-none bg-askspace-darkgray shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300 animate-zoom-in"
                       style={{ animationDelay: `${0.1 * index}s` }}
                     >
-                      <div className="relative h-48">
+                      <div className="relative h-48 overflow-hidden">
                         <img 
-                          src={product.image} 
-                          alt={product.name} 
-                          className="w-full h-full object-cover"
+                          src={project.image} 
+                          alt={project.name} 
+                          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-askspace-black to-transparent opacity-60"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-3">
+                          <div className="flex items-center">
+                            {project.category === 'residential' && <Layout className="h-5 w-5 text-askspace-red mr-2" />}
+                            {project.category === 'commercial' && <Move className="h-5 w-5 text-askspace-red mr-2" />}
+                            {project.category === 'interior' && <Image className="h-5 w-5 text-askspace-red mr-2" />}
+                            {project.category === 'landscape' && <Star className="h-5 w-5 text-askspace-red mr-2" />}
+                            <h3 className="font-bold text-lg text-white">{project.name}</h3>
+                          </div>
+                        </div>
                       </div>
                       <CardContent className="p-4">
-                        <div className="flex items-center mb-2">
-                          <Pill className="h-5 w-5 text-pharma-blue mr-2" />
-                          <h3 className="font-bold text-lg text-pharma-darkgray">{product.name}</h3>
+                        <p className="text-gray-400 text-sm">{project.description}</p>
+                        <div className="mt-3 flex justify-end">
+                          <button className="text-xs text-askspace-red hover:text-white transition-colors">View Details →</button>
                         </div>
-                        <p className="text-gray-600 text-sm">{product.description}</p>
                       </CardContent>
                     </Card>
                   ))}
@@ -149,23 +158,24 @@ const Projects = () => {
           </Tabs>
         </div>
 
-        <div className="mt-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          <h3 className="text-2xl font-bold text-center text-pharma-darkgray mb-8">Featured Products</h3>
+        <div className="mt-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          <h3 className="text-2xl font-bold text-center text-white mb-8">Featured Projects</h3>
           <Carousel className="w-full">
             <CarouselContent>
-              {products.slice(0, 4).map((product) => (
-                <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
+              {projects.slice(0, 4).map((project) => (
+                <CarouselItem key={project.id} className="md:basis-1/2 lg:basis-1/3 pl-4">
                   <div className="p-1">
-                    <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all">
-                      <div className="h-36">
+                    <Card className="overflow-hidden border-none bg-askspace-darkgray shadow-lg hover:shadow-xl transition-all">
+                      <div className="h-60">
                         <img 
-                          src={product.image} 
-                          alt={product.name} 
+                          src={project.image} 
+                          alt={project.name} 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <CardContent className="p-4">
-                        <h4 className="font-medium text-pharma-darkgray">{product.name}</h4>
+                        <h4 className="font-medium text-white">{project.name}</h4>
+                        <p className="text-sm text-gray-400 mt-1">{project.description}</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -177,20 +187,20 @@ const Projects = () => {
           </Carousel>
         </div>
 
-        <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        <div className="mt-16 flex justify-center animate-fade-in" style={{ animationDelay: "0.5s" }}>
           <Pagination>
             <PaginationContent>
               <PaginationItem>
-                <PaginationPrevious href="#" />
+                <PaginationPrevious href="#" className="text-askspace-red" />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#" isActive>1</PaginationLink>
+                <PaginationLink href="#" isActive className="bg-askspace-red border-askspace-red">1</PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#">2</PaginationLink>
+                <PaginationLink href="#" className="text-white hover:text-askspace-red">2</PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationNext href="#" />
+                <PaginationNext href="#" className="text-askspace-red" />
               </PaginationItem>
             </PaginationContent>
           </Pagination>
