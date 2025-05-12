@@ -1,6 +1,5 @@
 
 import React from "react";
-import { TabsContent } from "@/components/ui/tabs";
 import ProjectCard from "./ProjectCard";
 
 interface ProjectsGridProps {
@@ -31,22 +30,18 @@ const ProjectsGrid = ({
     : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <>
-      {categories.map((category) => (
-        <TabsContent key={category.id} value={category.id} className="mt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            {filteredProjects.map((project, index) => (
-              <ProjectCard 
-                key={project.id} 
-                project={project} 
-                index={index} 
-                isAnimated={animatedItems.includes(index)} 
-              />
-            ))}
-          </div>
-        </TabsContent>
-      ))}
-    </>
+    <div className="mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        {filteredProjects.map((project, index) => (
+          <ProjectCard 
+            key={project.id} 
+            project={project} 
+            index={index} 
+            isAnimated={animatedItems.includes(index)} 
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

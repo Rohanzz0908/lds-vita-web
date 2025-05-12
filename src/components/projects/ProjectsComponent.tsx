@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 
 import { projectsData, categoriesData } from "./ProjectsData";
 import ProjectsFilter from "./ProjectsFilter";
@@ -37,18 +37,24 @@ const ProjectsComponent = () => {
         </div>
 
         <div className="mb-8 md:mb-12 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          <ProjectsFilter 
-            categories={categoriesData}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
-          
-          <ProjectsGrid 
-            categories={categoriesData}
-            projects={projectsData}
-            animatedItems={animatedItems}
-            selectedCategory={selectedCategory}
-          />
+          <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+            <ProjectsFilter 
+              categories={categoriesData}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
+            
+            {categoriesData.map((category) => (
+              <TabsContent key={category.id} value={category.id}>
+                <ProjectsGrid 
+                  categories={categoriesData}
+                  projects={projectsData}
+                  animatedItems={animatedItems}
+                  selectedCategory={selectedCategory}
+                />
+              </TabsContent>
+            ))}
+          </Tabs>
         </div>
 
         <FeaturedProjects projects={projectsData} />
