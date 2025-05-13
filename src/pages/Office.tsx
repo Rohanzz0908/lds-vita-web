@@ -9,15 +9,17 @@ import { toast } from "@/components/ui/use-toast";
 const Office = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
   
   useEffect(() => {
     // Load Google Maps script
     const loadMap = () => {
-      if (!mapLoaded && mapRef.current) {
+      if (!mapLoaded && mapRef.current && !scriptRef.current) {
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
         script.async = true;
         script.defer = true;
+        scriptRef.current = script;
         
         // Define the callback function in the global scope
         window.initMap = () => {
@@ -129,7 +131,7 @@ const Office = () => {
 
     loadMap();
 
-    // Clean up
+    // Clean up function
     return () => {
       // Clean up global initMap function
       if (window.initMap) {
@@ -137,9 +139,13 @@ const Office = () => {
         window.initMap = undefined;
       }
       
-      const mapScript = document.querySelector('script[src*="maps.googleapis.com/maps/api"]');
-      if (mapScript) {
-        mapScript.remove();
+      // Only remove the script if it exists and is still in the document
+      if (scriptRef.current) {
+        const mapScript = scriptRef.current;
+        if (document.head.contains(mapScript)) {
+          document.head.removeChild(mapScript);
+        }
+        scriptRef.current = null;
       }
     };
   }, [mapLoaded]);
@@ -157,6 +163,7 @@ const Office = () => {
           <p className="text-gray-400 mb-10">Visit us at our headquarters</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Office information side */}
             <div>
               <div className="bg-askspace-darkgray rounded-md p-6 mb-8">
                 <div className="flex items-center mb-4">
@@ -184,6 +191,7 @@ const Office = () => {
                 </div>
               </div>
               
+              {/* Office hours */}
               <div>
                 <h3 className="text-xl font-medium mb-4">Office Hours</h3>
                 <div className="bg-askspace-darkgray rounded-md p-6">
@@ -199,6 +207,7 @@ const Office = () => {
               </div>
             </div>
             
+            {/* Map side */}
             <div className="h-[400px] bg-askspace-darkgray rounded-md overflow-hidden">
               <div ref={mapRef} className="w-full h-full">
                 {!mapLoaded && (
@@ -210,6 +219,7 @@ const Office = () => {
             </div>
           </div>
           
+          {/* Contact section */}
           <div className="mt-12 text-center">
             <h3 className="text-xl font-medium mb-4">Plan a Visit</h3>
             <p className="text-gray-300 mb-6 max-w-lg mx-auto">Interested in learning more about AskSpace? Schedule a visit to our office by contacting us today.</p>
@@ -224,9 +234,6 @@ const Office = () => {
 };
 
 export default Office;
-
-// Note: Replace 'YOUR_API_KEY' with a valid Google Maps API key
-// For production, implement proper API key handling
 
 // Add TypeScript declaration for the global window
 declare global {
