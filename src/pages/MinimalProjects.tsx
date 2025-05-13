@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MinimalLayout from '@/components/MinimalLayout';
 import { projectsData, categoriesData } from '@/components/projects';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const MinimalProjects = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const isMobile = useIsMobile();
   
   const filteredProjects = selectedCategory === 'all' 
     ? projectsData 
@@ -31,12 +33,12 @@ const MinimalProjects = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="flex gap-4 mb-6 text-sm">
+          <div className={`flex ${isMobile ? 'flex-wrap' : ''} gap-4 mb-6 text-sm`}>
             {categoriesData.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-2 py-1 transition-colors duration-300 ${
+                className={`px-2 py-1 transition-colors duration-300 ${isMobile ? 'mb-2' : ''} ${
                   selectedCategory === category.id ? 'text-askspace-red' : 'text-gray-400'
                 }`}
               >

@@ -36,7 +36,7 @@ const Navbar = () => {
           
           <div className="flex items-center">
             <Button variant="outline" className="hidden md:block border-askspace-red text-askspace-red hover:bg-askspace-red hover:text-white transition-all duration-300">
-              Get in Touch
+              <Link to="/#contact">Get in Touch</Link>
             </Button>
             
             <div className="md:hidden flex items-center">
@@ -93,9 +93,11 @@ const Navbar = () => {
               Contact
             </Link>
             <div className="px-3 py-2">
-              <Button className="w-full bg-askspace-red text-white hover:bg-askspace-red/90 transition-colors">
-                Get in Touch
-              </Button>
+              <Link to="/#contact">
+                <Button className="w-full bg-askspace-red text-white hover:bg-askspace-red/90 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  Get in Touch
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

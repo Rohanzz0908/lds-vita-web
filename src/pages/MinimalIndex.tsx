@@ -3,9 +3,13 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import MinimalLayout from '@/components/MinimalLayout';
 import { projectsData } from '@/components/projects';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const MinimalIndex = () => {
   const featuredProjects = projectsData.filter(project => project.featured);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Ensure any scroll is reset when the page loads
@@ -52,8 +56,20 @@ const MinimalIndex = () => {
           </motion.div>
         )}
 
-        <div className="absolute bottom-8 right-8 text-xs text-gray-500">
-          <p>Copyright © MAD Architects. All Rights Reserved.</p>
+        <motion.div 
+          className="mt-12 mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Link to="/projects" className="inline-flex items-center text-askspace-red hover:text-white transition-colors duration-300 group">
+            View All Projects 
+            <ArrowRight className="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
+
+        <div className={`${isMobile ? 'relative mt-20' : 'absolute bottom-8 right-8'} text-xs text-gray-500`}>
+          <p>Copyright © AskSpace {new Date().getFullYear()}. All Rights Reserved.</p>
         </div>
       </div>
     </MinimalLayout>

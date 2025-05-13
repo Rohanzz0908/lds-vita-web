@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface MinimalLayoutProps {
   children: React.ReactNode;
@@ -22,6 +23,8 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
     title: "",
     image: "",
   });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   // Make this available to child components
   React.useEffect(() => {
@@ -49,34 +52,59 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
 
   return (
     <div className="bg-askspace-black min-h-screen text-white">
+      {/* Mobile menu button */}
+      {isMobile && (
+        <motion.div 
+          className="fixed top-4 left-4 z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <button 
+            onClick={() => setMenuOpen(!menuOpen)} 
+            className="bg-askspace-red p-2 rounded-full"
+          >
+            {menuOpen ? (
+              <X size={20} />
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+        </motion.div>
+      )}
+
       {/* Sidebar navigation */}
       <motion.div 
-        className="fixed left-0 top-0 h-full p-8 z-50"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        className={`fixed left-0 top-0 h-full p-8 z-50 bg-askspace-black ${isMobile ? 'w-64' : 'w-auto'}`}
+        initial={{ opacity: isMobile ? 0 : 1, x: isMobile ? -100 : 0 }}
+        animate={{ 
+          opacity: isMobile ? (menuOpen ? 1 : 0) : 1, 
+          x: isMobile ? (menuOpen ? 0 : -100) : 0 
+        }}
         transition={{ duration: 0.5 }}
       >
-        <Link to="/" className="mb-12 block">
-          <h1 className="text-2xl font-bold tracking-tight text-askspace-red">mad</h1>
+        <Link to="/" className="mb-12 block" onClick={() => isMobile && setMenuOpen(false)}>
+          <h1 className="text-2xl font-bold tracking-tight text-askspace-red">askspace</h1>
         </Link>
         
         <nav className="space-y-4 mt-16">
-          <Link to="/" className="block text-sm hover:text-askspace-red transition-colors duration-300">news</Link>
-          <Link to="/projects" className="block text-sm hover:text-askspace-red transition-colors duration-300">works</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300">art</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300">books</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300">office</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300">jobs</Link>
-          <Link to="/#contact" className="block text-sm hover:text-askspace-red transition-colors duration-300">contact</Link>
+          <Link to="/" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>news</Link>
+          <Link to="/projects" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>works</Link>
+          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>art</Link>
+          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>office</Link>
+          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>jobs</Link>
+          <Link to="/#contact" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>contact</Link>
         </nav>
         
         <div className="absolute bottom-8 left-8">
-          <button className="text-sm hover:text-askspace-red transition-colors duration-300">中文</button>
+          <p className="text-xs text-gray-500">AskSpace © {new Date().getFullYear()}</p>
         </div>
       </motion.div>
 
       {/* Main content */}
-      <main className="pl-32 w-full">
+      <main className={`${isMobile ? 'pl-0' : 'pl-32'} w-full transition-all duration-300`}>
         {children}
       </main>
 

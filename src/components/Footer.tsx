@@ -53,7 +53,6 @@ const Footer = () => {
         
         <div className="border-t border-askspace-red/20 mt-8 pt-8 text-center text-sm">
           <p className="text-gray-500">&copy; {new Date().getFullYear()} AskSpace. All rights reserved.</p>
-          <p className="mt-2 text-askspace-red">All rights claimed by Rohan Chandupatla</p>
         </div>
       </div>
     </footer>
