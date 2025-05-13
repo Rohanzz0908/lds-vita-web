@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import MinimalLayout from '@/components/MinimalLayout';
@@ -12,15 +11,9 @@ const Office = () => {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
   
   useEffect(() => {
-    // Prevent duplicate script loading
-    if (window.google?.maps || document.querySelector('script[src*="maps.googleapis.com"]')) {
-      if (window.google?.maps) {
-        setMapLoaded(true);
-        initializeMap();
-      }
-      return;
-    }
-
+    // Keep track of whether the component is mounted
+    let isMounted = true;
+    
     // Define the initialization function
     function initializeMap() {
       if (!mapRef.current || !window.google?.maps) return;
@@ -118,47 +111,87 @@ const Office = () => {
       });
     }
 
-    // Set global callback that Google Maps will call when loaded
-    window.initMap = () => {
+    // Check if Google Maps is already loaded
+    if (window.google?.maps) {
       setMapLoaded(true);
       initializeMap();
+      return;
+    }
+    
+    // Check if script is already being loaded by another instance
+    const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
+    if (existingScript) {
+      // If script exists but Google Maps isn't ready yet, wait for it
+      const checkGoogleMaps = setInterval(() => {
+        if (window.google?.maps && isMounted) {
+          clearInterval(checkGoogleMaps);
+          setMapLoaded(true);
+          initializeMap();
+        }
+      }, 100);
+      
+      return () => {
+        isMounted = false;
+        clearInterval(checkGoogleMaps);
+      };
+    }
+
+    // Set global callback that Google Maps will call when loaded
+    window.initMap = () => {
+      if (isMounted) {
+        setMapLoaded(true);
+        initializeMap();
+      }
     };
 
     // Create and load the script
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    script.onerror = () => {
-      toast({
-        title: "Map loading error",
-        description: "Could not load the map. Please try again later.",
-        variant: "destructive",
-      });
-    };
-    
-    // Store reference and add to document
-    scriptRef.current = script;
-    document.head.appendChild(script);
-    
-    // Show a loading toast
-    toast({
-      title: "Loading map",
-      description: "The map is being loaded, please wait...",
-    });
+    try {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      script.onerror = () => {
+        if (isMounted) {
+          toast({
+            title: "Map loading error",
+            description: "Could not load the map. Please try again later.",
+            variant: "destructive",
+          });
+        }
+      };
+      
+      // Store reference and add to document
+      scriptRef.current = script;
+      document.head.appendChild(script);
+      
+      // Show a loading toast
+      if (isMounted) {
+        toast({
+          title: "Loading map",
+          description: "The map is being loaded, please wait...",
+        });
+      }
+    } catch (err) {
+      console.error("Error loading Google Maps:", err);
+    }
 
     // Cleanup function
     return () => {
+      isMounted = false;
+      
       // Clean up global callback
       if (window.initMap) {
         // @ts-ignore
         window.initMap = undefined;
       }
       
-      // Only remove the script if it exists and we have a reference to it
-      if (scriptRef.current && document.head.contains(scriptRef.current)) {
+      // Only remove the script if it exists and we created it
+      if (scriptRef.current) {
         try {
-          document.head.removeChild(scriptRef.current);
+          // Check if the script is still in the document before removing
+          if (document.head.contains(scriptRef.current)) {
+            document.head.removeChild(scriptRef.current);
+          }
         } catch (e) {
           console.error("Error removing script:", e);
         }
