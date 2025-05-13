@@ -1,9 +1,15 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface MinimalLayoutProps {
   children: React.ReactNode;
@@ -90,12 +96,44 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
         </Link>
         
         <nav className="space-y-4 mt-16">
-          <Link to="/" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>news</Link>
-          <Link to="/projects" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>works</Link>
+          <Link to="/news" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>news</Link>
+          
+          {/* Works dropdown menu */}
+          <div className="relative">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center text-sm hover:text-askspace-red transition-colors duration-300 focus:outline-none">
+                <span>works</span>
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-askspace-darkgray border-askspace-lightgray min-w-[200px]">
+                <Link to="/projects" onClick={() => isMobile && setMenuOpen(false)}>
+                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                    all projects
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/projects?category=residential" onClick={() => isMobile && setMenuOpen(false)}>
+                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                    residential
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/projects?category=commercial" onClick={() => isMobile && setMenuOpen(false)}>
+                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                    commercial
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/projects?category=cultural" onClick={() => isMobile && setMenuOpen(false)}>
+                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                    cultural
+                  </DropdownMenuItem>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          
           <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>art</Link>
           <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>office</Link>
           <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>jobs</Link>
-          <Link to="/#contact" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>contact</Link>
+          <Link to="/contact" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>contact</Link>
         </nav>
         
         <div className="absolute bottom-8 left-8">

@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import MinimalIndex from "./pages/MinimalIndex";
 import MinimalProjects from "./pages/MinimalProjects";
+import News from "./pages/News";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<MinimalIndex />} />
           <Route path="/projects" element={<MinimalProjects />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/original" element={<Index />} />
           <Route path="/original/projects" element={<Projects />} />
           <Route path="/original/contact" element={<Contact />} />

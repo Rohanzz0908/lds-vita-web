@@ -1,16 +1,13 @@
 
 import React from "react";
-import Navbar from "@/components/Navbar";
+import MinimalLayout from "@/components/MinimalLayout";
 import ContactComponent from "@/components/Contact";
-import Footer from "@/components/Footer";
 
 const ContactPage = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
+    <MinimalLayout>
       <ContactComponent />
-      <Footer />
-    </div>
+    </MinimalLayout>
   );
 };
 
