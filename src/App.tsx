@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import MinimalIndex from "./pages/MinimalIndex";
+import MinimalProjects from "./pages/MinimalProjects";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +20,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/" element={<MinimalIndex />} />
+          <Route path="/projects" element={<MinimalProjects />} />
+          <Route path="/original" element={<Index />} />
+          <Route path="/original/projects" element={<Projects />} />
+          <Route path="/original/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
