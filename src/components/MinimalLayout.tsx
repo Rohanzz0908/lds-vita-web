@@ -150,13 +150,6 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
             art
           </Link>
           <Link 
-            to="/office" 
-            className={`block text-sm ${isActive('/office') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
-            onClick={() => isMobile && setMenuOpen(false)}
-          >
-            office
-          </Link>
-          <Link 
             to="/jobs" 
             className={`block text-sm ${isActive('/jobs') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
             onClick={() => isMobile && setMenuOpen(false)}
