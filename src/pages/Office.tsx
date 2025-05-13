@@ -4,128 +4,139 @@ import { motion } from 'framer-motion';
 import MinimalLayout from '@/components/MinimalLayout';
 import { Building, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from "@/components/ui/use-toast";
 
 const Office = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
-  const mapRef = useRef(null);
+  const mapRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     // Load Google Maps script
     const loadMap = () => {
       if (!mapLoaded && mapRef.current) {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
         script.async = true;
         script.defer = true;
-        script.onload = () => {
-          setMapLoaded(true);
-          initMap();
-        };
-        document.head.appendChild(script);
-      }
-    };
-    
-    const initMap = () => {
-      if (window.google && mapRef.current) {
-        const location = { lat: 40.7128, lng: -74.0060 }; // New York coordinates
-        const map = new window.google.maps.Map(mapRef.current, {
-          center: location,
-          zoom: 15,
-          styles: [
-            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-            { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-            { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-            {
-              featureType: "administrative.locality",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "poi",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "geometry",
-              stylers: [{ color: "#263c3f" }],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#6b9a76" }],
-            },
-            {
-              featureType: "road",
-              elementType: "geometry",
-              stylers: [{ color: "#38414e" }],
-            },
-            {
-              featureType: "road",
-              elementType: "geometry.stroke",
-              stylers: [{ color: "#212a37" }],
-            },
-            {
-              featureType: "road",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#9ca5b3" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry",
-              stylers: [{ color: "#746855" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry.stroke",
-              stylers: [{ color: "#1f2835" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#f3d19c" }],
-            },
-            {
-              featureType: "transit",
-              elementType: "geometry",
-              stylers: [{ color: "#2f3948" }],
-            },
-            {
-              featureType: "transit.station",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "water",
-              elementType: "geometry",
-              stylers: [{ color: "#17263c" }],
-            },
-            {
-              featureType: "water",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#515c6d" }],
-            },
-            {
-              featureType: "water",
-              elementType: "labels.text.stroke",
-              stylers: [{ color: "#17263c" }],
-            },
-          ],
-        });
         
-        const marker = new window.google.maps.Marker({
-          position: location,
-          map: map,
-          title: "AskSpace Headquarters"
+        // Define the callback function in the global scope
+        window.initMap = () => {
+          setMapLoaded(true);
+          if (mapRef.current) {
+            const location = { lat: 40.7128, lng: -74.0060 }; // New York coordinates
+            const map = new google.maps.Map(mapRef.current, {
+              center: location,
+              zoom: 15,
+              styles: [
+                { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                {
+                  featureType: "administrative.locality",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#d59563" }],
+                },
+                {
+                  featureType: "poi",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#d59563" }],
+                },
+                {
+                  featureType: "poi.park",
+                  elementType: "geometry",
+                  stylers: [{ color: "#263c3f" }],
+                },
+                {
+                  featureType: "poi.park",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#6b9a76" }],
+                },
+                {
+                  featureType: "road",
+                  elementType: "geometry",
+                  stylers: [{ color: "#38414e" }],
+                },
+                {
+                  featureType: "road",
+                  elementType: "geometry.stroke",
+                  stylers: [{ color: "#212a37" }],
+                },
+                {
+                  featureType: "road",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#9ca5b3" }],
+                },
+                {
+                  featureType: "road.highway",
+                  elementType: "geometry",
+                  stylers: [{ color: "#746855" }],
+                },
+                {
+                  featureType: "road.highway",
+                  elementType: "geometry.stroke",
+                  stylers: [{ color: "#1f2835" }],
+                },
+                {
+                  featureType: "road.highway",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#f3d19c" }],
+                },
+                {
+                  featureType: "transit",
+                  elementType: "geometry",
+                  stylers: [{ color: "#2f3948" }],
+                },
+                {
+                  featureType: "transit.station",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#d59563" }],
+                },
+                {
+                  featureType: "water",
+                  elementType: "geometry",
+                  stylers: [{ color: "#17263c" }],
+                },
+                {
+                  featureType: "water",
+                  elementType: "labels.text.fill",
+                  stylers: [{ color: "#515c6d" }],
+                },
+                {
+                  featureType: "water",
+                  elementType: "labels.text.stroke",
+                  stylers: [{ color: "#17263c" }],
+                },
+              ],
+            });
+            
+            const marker = new google.maps.Marker({
+              position: location,
+              map: map,
+              title: "AskSpace Headquarters"
+            });
+          }
+        };
+        
+        document.head.appendChild(script);
+        
+        // Show a toast message while map loads
+        toast({
+          title: "Loading map",
+          description: "The map is being loaded, please wait...",
         });
       }
     };
 
-    // Only attempt to load the map if the component is mounted
     loadMap();
 
     // Clean up
     return () => {
+      // Clean up global initMap function
+      if (window.initMap) {
+        // @ts-ignore
+        window.initMap = undefined;
+      }
+      
       const mapScript = document.querySelector('script[src*="maps.googleapis.com/maps/api"]');
       if (mapScript) {
         mapScript.remove();
@@ -216,3 +227,10 @@ export default Office;
 
 // Note: Replace 'YOUR_API_KEY' with a valid Google Maps API key
 // For production, implement proper API key handling
+
+// Add TypeScript declaration for the global window
+declare global {
+  interface Window {
+    initMap?: () => void;
+  }
+}
