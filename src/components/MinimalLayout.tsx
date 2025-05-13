@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   DropdownMenu,
@@ -31,6 +31,7 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
 
   // Make this available to child components
   React.useEffect(() => {
@@ -54,6 +55,11 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
   const closeModal = () => {
     setModal(prev => ({ ...prev, show: false }));
     document.body.style.overflow = 'auto';
+  };
+
+  // Function to determine if a nav item is active
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
 
   return (
@@ -96,12 +102,18 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
         </Link>
         
         <nav className="space-y-4 mt-16">
-          <Link to="/news" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>news</Link>
+          <Link 
+            to="/news" 
+            className={`block text-sm ${isActive('/news') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            onClick={() => isMobile && setMenuOpen(false)}
+          >
+            news
+          </Link>
           
           {/* Works dropdown menu */}
           <div className="relative">
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center text-sm hover:text-askspace-red transition-colors duration-300 focus:outline-none">
+              <DropdownMenuTrigger className={`flex items-center text-sm ${location.pathname.includes('/projects') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300 focus:outline-none`}>
                 <span>works</span>
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
@@ -130,10 +142,34 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
             </DropdownMenu>
           </div>
           
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>art</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>office</Link>
-          <Link to="#" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>jobs</Link>
-          <Link to="/contact" className="block text-sm hover:text-askspace-red transition-colors duration-300" onClick={() => isMobile && setMenuOpen(false)}>contact</Link>
+          <Link 
+            to="/art" 
+            className={`block text-sm ${isActive('/art') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            onClick={() => isMobile && setMenuOpen(false)}
+          >
+            art
+          </Link>
+          <Link 
+            to="/office" 
+            className={`block text-sm ${isActive('/office') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            onClick={() => isMobile && setMenuOpen(false)}
+          >
+            office
+          </Link>
+          <Link 
+            to="/jobs" 
+            className={`block text-sm ${isActive('/jobs') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            onClick={() => isMobile && setMenuOpen(false)}
+          >
+            jobs
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`block text-sm ${isActive('/contact') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            onClick={() => isMobile && setMenuOpen(false)}
+          >
+            contact
+          </Link>
         </nav>
         
         <div className="absolute bottom-8 left-8">
