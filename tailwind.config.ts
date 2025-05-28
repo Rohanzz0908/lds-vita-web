@@ -30,10 +30,9 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				askspace: {
 					red: '#ea384c',
-					white: '#ffffff',
 					black: '#000000',
-					darkgray: '#f8f9fa',
-					lightgray: '#e9ecef'
+					darkgray: '#222222',
+					lightgray: '#444444'
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
