@@ -7,8 +7,8 @@
 }
 
 body {
-  background-color: #000000;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -204,7 +204,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #222222;
+  background: #f8f9fa;
 }
 
 ::-webkit-scrollbar-thumb {

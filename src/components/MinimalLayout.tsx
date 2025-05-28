@@ -63,7 +63,7 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="bg-askspace-black min-h-screen text-white">
+    <div className="bg-askspace-white min-h-screen text-black">
       {/* Mobile menu button */}
       {isMobile && (
         <motion.div 
@@ -77,10 +77,10 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
             className="bg-askspace-red p-2 rounded-full"
           >
             {menuOpen ? (
-              <X size={20} />
+              <X size={20} className="text-white" />
             ) : (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="white" strokeWidth="2" strokeLinecap="round" />
               </svg>
             )}
           </button>
@@ -89,7 +89,7 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
 
       {/* Sidebar navigation */}
       <motion.div 
-        className={`fixed left-0 top-0 h-full p-8 z-50 bg-askspace-black ${isMobile ? 'w-64' : 'w-auto'}`}
+        className={`fixed left-0 top-0 h-full p-8 z-50 bg-askspace-white border-r border-askspace-lightgray ${isMobile ? 'w-64' : 'w-auto'}`}
         initial={{ opacity: isMobile ? 0 : 1, x: isMobile ? -100 : 0 }}
         animate={{ 
           opacity: isMobile ? (menuOpen ? 1 : 0) : 1, 
@@ -104,7 +104,7 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
         <nav className="space-y-4 mt-16">
           <Link 
             to="/news" 
-            className={`block text-sm ${isActive('/news') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            className={`block text-sm ${isActive('/news') ? 'text-askspace-red' : 'text-black hover:text-askspace-red'} transition-colors duration-300`} 
             onClick={() => isMobile && setMenuOpen(false)}
           >
             news
@@ -113,28 +113,28 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
           {/* Works dropdown menu */}
           <div className="relative">
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center text-sm ${location.pathname.includes('/projects') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300 focus:outline-none`}>
+              <DropdownMenuTrigger className={`flex items-center text-sm ${location.pathname.includes('/projects') ? 'text-askspace-red' : 'text-black hover:text-askspace-red'} transition-colors duration-300 focus:outline-none`}>
                 <span>works</span>
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-askspace-darkgray border-askspace-lightgray min-w-[200px]">
+              <DropdownMenuContent className="bg-askspace-white border-askspace-lightgray min-w-[200px]">
                 <Link to="/projects" onClick={() => isMobile && setMenuOpen(false)}>
-                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                  <DropdownMenuItem className="text-black hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
                     all projects
                   </DropdownMenuItem>
                 </Link>
                 <Link to="/projects?category=residential" onClick={() => isMobile && setMenuOpen(false)}>
-                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                  <DropdownMenuItem className="text-black hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
                     residential
                   </DropdownMenuItem>
                 </Link>
                 <Link to="/projects?category=commercial" onClick={() => isMobile && setMenuOpen(false)}>
-                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                  <DropdownMenuItem className="text-black hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
                     commercial
                   </DropdownMenuItem>
                 </Link>
                 <Link to="/projects?category=cultural" onClick={() => isMobile && setMenuOpen(false)}>
-                  <DropdownMenuItem className="text-white hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
+                  <DropdownMenuItem className="text-black hover:bg-askspace-lightgray hover:text-askspace-red cursor-pointer">
                     cultural
                   </DropdownMenuItem>
                 </Link>
@@ -144,21 +144,21 @@ const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
           
           <Link 
             to="/art" 
-            className={`block text-sm ${isActive('/art') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            className={`block text-sm ${isActive('/art') ? 'text-askspace-red' : 'text-black hover:text-askspace-red'} transition-colors duration-300`} 
             onClick={() => isMobile && setMenuOpen(false)}
           >
             art
           </Link>
           <Link 
             to="/jobs" 
-            className={`block text-sm ${isActive('/jobs') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            className={`block text-sm ${isActive('/jobs') ? 'text-askspace-red' : 'text-black hover:text-askspace-red'} transition-colors duration-300`} 
             onClick={() => isMobile && setMenuOpen(false)}
           >
             jobs
           </Link>
           <Link 
             to="/contact" 
-            className={`block text-sm ${isActive('/contact') ? 'text-askspace-red' : 'text-white hover:text-askspace-red'} transition-colors duration-300`} 
+            className={`block text-sm ${isActive('/contact') ? 'text-askspace-red' : 'text-black hover:text-askspace-red'} transition-colors duration-300`} 
             onClick={() => isMobile && setMenuOpen(false)}
           >
             contact
